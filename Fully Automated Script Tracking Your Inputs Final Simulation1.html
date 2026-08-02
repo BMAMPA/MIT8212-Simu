@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SDSMCLF v1.0 Presentation Dashboard</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background: #f4f6f9; padding: 20px; color: #333; margin: 0; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        header { background: #1e3a8a; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h3 { color: #1e3a8a; margin-top: 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+        label { display: block; font-weight: bold; margin: 10px 0 5px; color: #4b5563; font-size: 14px; }
+        input { width: 92%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #f9fafb; }
+        button { background: #10b981; color: white; border: none; padding: 12px; width: 97%; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        button:hover { background: #059669; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; font-size: 13px; }
+        th { background: #f3f4f6; color: #4b5563; }
+        .console { background: #111827; color: #10b981; padding: 15px; border-radius: 6px; font-family: monospace; white-space: pre-wrap; margin-top: 15px; font-size: 12px; line-height: 1.5; }
+        .badge { background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h2>SDSMCLF v1.0 Working Simulation Prototype</h2>
+        <p>Smart Decentralized Secure Metering Credit Loading Framework — Live Seminar Interface</p>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Execute Live Demo Transaction</h3>
+            <label>Customer Name</label><input type="text" id="custName" value="Musa Adewale">
+            <label>Customer ID</label><input type="text" id="custId" value="IB001245">
+            <label>Smart Meter Serial</label><input type="text" id="meterId" value="SM4509876">
+            <label>Purchase Topup Amount (₦)</label><input type="number" id="amount" value="5000">
+            <button onclick="runSimulationPipeline()">Send Secure Transmission Request</button>
+            <div class="console" id="consoleLogs">> Ready for demonstration sequence submission...</div>
+        </div>
+
+        <div class="card">
+            <h3>Real-Time Immutable Audit Log Repository</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Target Client</th>
+                        <th>Meter Address</th>
+                        <th>Value</th>
+                        <th>Verification</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="auditRows">
+                    <!-- Dynamic entries will log here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function runSimulationPipeline() {
+        const consoleLogs = document.getElementById('consoleLogs');
+        const auditRows = document.getElementById('auditRows');
+        
+        // Capture dynamic values typed into the browser inputs by the user
+        const dynamicName = document.getElementById('custName').value;
+        const dynamicId = document.getElementById('custId').value;
+        const dynamicMeter = document.getElementById('meterId').value;
+        const dynamicAmount = parseFloat(document.getElementById('amount').value) || 0;
+        
+        consoleLogs.innerHTML = `> Connecting to simulated Payment Gateway infrastructure...\n`;
+        
+        setTimeout(() => {
+            consoleLogs.innerHTML += `> Gateway Handshake verified: APPROVED [PAYMENT_SUCCESS_BANK_APPROVED]\n`;
+            consoleLogs.innerHTML += `> Forwarding payload packets to Secure API Engine Layer...\n`;
+            
+            setTimeout(() => {
+                consoleLogs.innerHTML += `> Cryptographic JWT Engine built secure signature payload token for ID: ${dynamicId}.\n`;
+                consoleLogs.innerHTML += `> Validation Engine check: INTEGRITY PASSED (0% Alteration detected)\n`;
+                
+                setTimeout(() => {
+                    consoleLogs.innerHTML += `> Deploying allocation packets to Smart Meter Emulator memory.\n`;
+                    consoleLogs.innerHTML += `> SUCCESS: Credit loaded successfully. Current Balance: ₦${dynamicAmount.toLocaleString()}\n`;
+                    
+                    const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                    const newRow = `
+                        <tr>
+                            <td>${now}</td>
+                            <td>${dynamicName}</td>
+                            <td>${dynamicMeter}</td>
+                            <td>₦${dynamicAmount.toLocaleString()}</td>
+                            <td><span class="badge">APPROVED</span></td>
+                            <td><span class="badge">SUCCESS</span></td>
+                        </tr>
+                    `;
+                    auditRows.innerHTML = newRow + auditRows.innerHTML;
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }
+</script>
+</body>
+</html>
